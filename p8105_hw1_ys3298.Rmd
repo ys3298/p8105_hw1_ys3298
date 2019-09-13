@@ -17,7 +17,7 @@ df = tibble(
   vec_fac = factor(c("1", "2", "1", "1", "1", "1","2","2"))
 )
 
-#take the mean of each data types in df
+#Take the mean of each data types in df
 #The mean of character vector and factor vector do not work.
 mean(df$norm_distri)
 mean(df$vec_logi)
@@ -30,7 +30,7 @@ num_char = as.numeric(df$vec_char)
 num_fac = as.numeric(df$vec_fac)
 ```
 
-```{r echo=TRUE}
+```{r multiplication, echo=TRUE}
 #convert the logical vector to numeric, and multiply the random sample by the result
 num_logi = as.numeric(df$vec_logi)
 product_logi_num = num_logi * df$norm_distri
@@ -45,4 +45,32 @@ num_logi_fact = as.numeric(as.factor(df$vec_logi))
 product_num_logi_fac = num_logi_fact * df$norm_distri
 ```
 
+```{r}
+#setup new dataframe for plot
+plotdata = tibble(
+  x = rnorm(500, 0, 1),
+  y = rnorm(500, 0, 1),
+  plot_logi = x + y > 1,
+  plot_num = as.numeric(plot_logi),
+  plot_fac = as.factor(plot_logi)
+)
+```
+
+
+* The row of the plotdata is : `r nrow(plotdata)`
+* The column of the plotdata is : `r ncol(plotdata)` 
+* The mean of x : `r mean(plotdata$x)`
+* The median of x : `r median(plotdata$x)`
+* The standard deviation of x : `r sd(plotdata$x)`
+* The proportion of cases for which x + y > 1 is : `r sum(plotdata$plot_logi, na.rm = TRUE)/ 500 `
+
+```{r}
+ggplot(plot1, data = plotdata, mapping = aes(x = x, y = y, colour = plot_logi)) + geom_point()
+ggplot(plot2, data = plotdata, mapping = aes(x = x, y = y, colour = plot_num)) + geom_point()
+ggplot(plot3, data = plotdata, mapping = aes(x = x, y = y, colour = plot_fac)) + geom_point()
+
+ggsave("plot1.png")
+ggsave("plot2.png")
+ggsave("plot3.png")
+```
 
