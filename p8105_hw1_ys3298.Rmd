@@ -5,17 +5,44 @@ date: "9/12/2019"
 output: github_document
 ---
 
+
 ```{r setup dataframe, echo = TRUE, results = "hide"}
+#setup dataframe
 library(tidyverse)
 
 df = tibble(
-  norm_distribution = rnorm(8, 0, 1),
-  vec_logical = norm_distribution > 0,
-  vec_char = c("A", "B", "C", "D", "E", "F", "G", "H"),
-  vec_factor = factor(c("1", "2", "1", "1", "1", "1","2","2"))
+  norm_distri = rnorm(8, 0, 1),
+  vec_logi = norm_distri > 0,
+  vec_char = c("1", "2", "3", "4", "5", "6", "7", "8"),
+  vec_fac = factor(c("1", "2", "1", "1", "1", "1","2","2"))
 )
 
+#take the mean of each data types in df
+#The mean of character vector and factor vector do not work.
+mean(df$norm_distri)
+mean(df$vec_logi)
+mean(df$vec_char)
+mean(df$vec_fac)
+
+#make numeric
+num_logi = as.numeric(df$vec_logi)
+num_char = as.numeric(df$vec_char)
+num_fac = as.numeric(df$vec_fac)
 ```
 
+```{r echo=TRUE}
+#convert the logical vector to numeric, and multiply the random sample by the result
+num_logi = as.numeric(df$vec_logi)
+product_logi_num = num_logi * df$norm_distri
+
+#convert the logical vector to a factor, and multiply the random sample by the result
+fac_logi = as.factor(df$vec_logi)
+product_logi_fac = fac_logi * df$norm_distri
+#‘*’ not meaningful for factors
+
+#convert the logical vector to a factor and then convert the result to numeric, and multiply the random sample by the result
+num_logi_fact = as.numeric(as.factor(df$vec_logi))
+product_num_logi_fac = num_logi_fact * df$norm_distri
+```
 
 
