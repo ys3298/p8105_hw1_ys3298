@@ -5,7 +5,7 @@ date: "9/12/2019"
 output: github_document
 ---
 
-
+# 1.1
 ```{r setup dataframe, echo = TRUE, results = "hide"}
 #setup dataframe
 library(tidyverse)
@@ -14,7 +14,7 @@ df = tibble(
   norm_distri = rnorm(8, 0, 1),
   vec_logi = norm_distri > 0,
   vec_char = c("1", "2", "3", "4", "5", "6", "7", "8"),
-  vec_fac = factor(c("1", "2", "1", "1", "1", "1","2","2"))
+  vec_fac = factor(c("1", "2", "1", "1", "1", "1", "2","2"))
 )
 
 #Take the mean of each data types in df
@@ -30,6 +30,7 @@ num_char = as.numeric(df$vec_char)
 num_fac = as.numeric(df$vec_fac)
 ```
 
+# 1.2
 ```{r multiplication, echo=TRUE}
 #convert the logical vector to numeric, and multiply the random sample by the result
 num_logi = as.numeric(df$vec_logi)
@@ -45,6 +46,7 @@ num_logi_fact = as.numeric(as.factor(df$vec_logi))
 product_num_logi_fac = num_logi_fact * df$norm_distri
 ```
 
+# 2.1
 ```{r}
 #setup new dataframe for plot
 plotdata = tibble(
@@ -56,7 +58,7 @@ plotdata = tibble(
 )
 ```
 
-
+# 2.2
 * The row of the plotdata is : `r nrow(plotdata)`
 * The column of the plotdata is : `r ncol(plotdata)` 
 * The mean of x : `r mean(plotdata$x)`
@@ -64,13 +66,12 @@ plotdata = tibble(
 * The standard deviation of x : `r sd(plotdata$x)`
 * The proportion of cases for which x + y > 1 is : `r sum(plotdata$plot_logi, na.rm = TRUE)/ 500 `
 
+# 2.3 + 2.4
 ```{r}
-ggplot(plot1, data = plotdata, mapping = aes(x = x, y = y, colour = plot_logi)) + geom_point()
-ggplot(plot2, data = plotdata, mapping = aes(x = x, y = y, colour = plot_num)) + geom_point()
-ggplot(plot3, data = plotdata, mapping = aes(x = x, y = y, colour = plot_fac)) + geom_point()
+ggplot(plot1, data = plotdata, mapping = aes(x = x, y = y, color = plot_logi)) + geom_point()
+ggplot(plot2, data = plotdata, mapping = aes(x = x, y = y, color = plot_num)) + geom_point()
+ggplot(plot3, data = plotdata, mapping = aes(x = x, y = y, color = plot_fac)) + geom_point()
 
 ggsave("plot1.png")
-ggsave("plot2.png")
-ggsave("plot3.png")
 ```
 
